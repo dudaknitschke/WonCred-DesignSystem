@@ -1,112 +1,200 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
 @import "tailwindcss";
 
-@theme {
-  /* Colors - Using won-colors prefix as requested */
-  --color-won-colors-brand-primary-0: #B01F29;
-  --color-won-colors-brand-primary-1: #892028;
-  --color-won-colors-brand-primary-2: #64131A;
-  --color-won-colors-brand-secondary: #F4F4F2;
-  --color-won-colors-brand-tertiary: #1D1D1B;
+:root {
+  /* Brand Colors */
+  --won-color-brand-primary-0: #B01F29;
+  --won-color-brand-primary-1: #892028;
+  --won-color-brand-primary-2: #64131A;
+  --won-color-brand-secondary: #F4F4F2;
+  --won-color-brand-tertiary: #1D1D1B;
 
-  --color-won-colors-surface-background: #FEFEFE;
-  --color-won-colors-surface-cards: #FFFFFF;
+  /* Surface Colors */
+  --won-color-surface-background: #FEFEFE;
+  --won-color-surface-cards: #FFFFFF;
 
-  --color-won-colors-complementary-green: #15B37D;
-  --color-won-colors-complementary-orange: #E67E22;
-  --color-won-colors-complementary-red: #C0392B;
-  --color-won-colors-complementary-blue: #3470B7;
+  /* Complementary Colors */
+  --won-color-complementary-green: #15B37D;
+  --won-color-complementary-orange: #E67E22;
+  --won-color-complementary-red: #C0392B;
+  --won-color-complementary-blue: #3470B7;
 
-  --color-won-colors-interactive-pressed: rgba(0, 0, 0, 0.2);
-  --color-won-colors-interactive-hover: #FFFFFF;
-  --color-won-colors-interactive-active: #FFFFFF;
+  /* Interactive States */
+  --won-color-interactive-pressed: rgba(0, 0, 0, 0.2);
+  --won-color-interactive-hover: #FFFFFF;
+  --won-color-interactive-active: #FFFFFF;
 
-  --color-won-colors-border-default: #E6E6E6;
+  /* Border */
+  --won-color-border-default: #E6E6E6;
 
-  --color-won-colors-content-primary: #1D1D1B;
-  --color-won-colors-content-secondary: #4A5565;
-  --color-won-colors-content-tertiary: #6A7282;
+  /* Content/Text */
+  --won-color-content-primary: #1D1D1B;
+  --won-color-content-secondary: #4A5565;
+  --won-color-content-tertiary: #6A7282;
 
   /* Typography */
-  --font-won-font-heading: "Degular Variable", "Outfit", sans-serif;
-  --font-won-font-body: "Manrope", sans-serif;
+  --won-font-family-heading: "Degular Variable", sans-serif;
+  --won-font-family-body: "Manrope", sans-serif;
 
-  --font-weight-won-regular: 400;
-  --font-weight-won-semibold: 600;
-  --font-weight-won-bold: 700;
-  --font-weight-won-extrabold: 800;
+  --won-font-weight-regular: 400;
+  --won-font-weight-semibold: 600;
+  --won-font-weight-bold: 700;
+  --won-font-weight-extrabold: 800;
 
-  /* Text Sizes */
-  --font-size-won-text-40: 2.5rem; /* 40px */
-  --font-size-won-text-40--line-height: 3rem; /* 48px */
+  /* Font Scale */
+  --won-font-size-2xl: 2.5rem;      /* 40px */
+  --won-line-height-2xl: 3rem;      /* 48px */
+  --won-font-size-xl: 2rem;         /* 32px */
+  --won-line-height-xl: 2.5rem;     /* 40px */
+  --won-font-size-lg: 1.5rem;       /* 24px */
+  --won-line-height-lg: 2rem;       /* 32px */
+  --won-font-size-md: 1.25rem;      /* 20px */
+  --won-line-height-md: 1.75rem;    /* 28px */
+  --won-font-size-base: 1rem;       /* 16px */
+  --won-line-height-base: 1.5rem;   /* 24px */
+  --won-font-size-sm: 0.875rem;     /* 14px */
+  --won-line-height-sm: 1.375rem;   /* 22px */
+  --won-font-size-xs: 0.75rem;      /* 12px */
+  --won-line-height-xs: 1.25rem;    /* 20px */
+  --won-font-size-2xs: 0.625rem;    /* 10px */
+  --won-line-height-2xs: 1rem;      /* 16px */
 
-  --font-size-won-text-32: 2rem; /* 32px */
-  --font-size-won-text-32--line-height: 2.5rem; /* 40px */
+  /* Spacing */
+  --won-spacing-0: 0;
+  --won-spacing-1: 0.25rem;   /* 4px */
+  --won-spacing-2: 0.5rem;    /* 8px */
+  --won-spacing-3: 0.75rem;   /* 12px */
+  --won-spacing-4: 1rem;      /* 16px */
+  --won-spacing-6: 1.5rem;    /* 24px */
+  --won-spacing-8: 2rem;      /* 32px */
+  --won-spacing-12: 3rem;     /* 48px */
+  --won-spacing-16: 4rem;     /* 64px */
 
-  --font-size-won-text-h1: 1.5rem; /* 24px */
-  --font-size-won-text-h1--line-height: 2rem; /* 32px */
+  /* Border Radius */
+  --won-radius-sm: 0.25rem;   /* 4px */
+  --won-radius-md: 0.5rem;    /* 8px */
+  --won-radius-lg: 0.75rem;   /* 12px */
+  --won-radius-xl: 1rem;      /* 16px */
+  --won-radius-full: 9999px;  /* rounded-full */
+}
 
-  --font-size-won-text-h2: 1.25rem; /* 20px */
-  --font-size-won-text-h2--line-height: 1.75rem; /* 28px */
+@theme {
+  /* Colors */
+  --color-won-brand-primary-0: var(--won-color-brand-primary-0);
+  --color-won-brand-primary-1: var(--won-color-brand-primary-1);
+  --color-won-brand-primary-2: var(--won-color-brand-primary-2);
+  --color-won-brand-secondary: var(--won-color-brand-secondary);
+  --color-won-brand-tertiary: var(--won-color-brand-tertiary);
 
-  --font-size-won-text-p1: 1rem; /* 16px */
-  --font-size-won-text-p1--line-height: 1.5rem; /* 24px */
+  --color-won-surface-background: var(--won-color-surface-background);
+  --color-won-surface-cards: var(--won-color-surface-cards);
 
-  --font-size-won-text-p2: 0.875rem; /* 14px */
-  --font-size-won-text-p2--line-height: 1.375rem; /* 22px */
+  --color-won-complementary-green: var(--won-color-complementary-green);
+  --color-won-complementary-orange: var(--won-color-complementary-orange);
+  --color-won-complementary-red: var(--won-color-complementary-red);
+  --color-won-complementary-blue: var(--won-color-complementary-blue);
 
-  --font-size-won-text-p3: 0.75rem; /* 12px */
-  --font-size-won-text-p3--line-height: 1.25rem; /* 20px */
+  --color-won-interactive-pressed: var(--won-color-interactive-pressed);
+  --color-won-interactive-hover: var(--won-color-interactive-hover);
+  --color-won-interactive-active: var(--won-color-interactive-active);
 
-  --font-size-won-text-p4: 0.625rem; /* 10px */
-  --font-size-won-text-p4--line-height: 1rem; /* 16px */
+  --color-won-border-default: var(--won-color-border-default);
+
+  --color-won-content-primary: var(--won-color-content-primary);
+  --color-won-content-secondary: var(--won-color-content-secondary);
+  --color-won-content-tertiary: var(--won-color-content-tertiary);
+
+  /* Typography */
+  --font-won-heading: var(--won-font-family-heading);
+  --font-won-body: var(--won-font-family-body);
+
+  --font-weight-won-regular: var(--won-font-weight-regular);
+  --font-weight-won-semibold: var(--won-font-weight-semibold);
+  --font-weight-won-bold: var(--won-font-weight-bold);
+  --font-weight-won-extrabold: var(--won-font-weight-extrabold);
+
+  /* Font Scale */
+  --font-size-won-2xl: var(--won-font-size-2xl);
+  --font-size-won-2xl--line-height: var(--won-line-height-2xl);
+  --font-size-won-xl: var(--won-font-size-xl);
+  --font-size-won-xl--line-height: var(--won-line-height-xl);
+  --font-size-won-lg: var(--won-font-size-lg);
+  --font-size-won-lg--line-height: var(--won-line-height-lg);
+  --font-size-won-md: var(--won-font-size-md);
+  --font-size-won-md--line-height: var(--won-line-height-md);
+  --font-size-won-base: var(--won-font-size-base);
+  --font-size-won-base--line-height: var(--won-line-height-base);
+  --font-size-won-sm: var(--won-font-size-sm);
+  --font-size-won-sm--line-height: var(--won-line-height-sm);
+  --font-size-won-xs: var(--won-font-size-xs);
+  --font-size-won-xs--line-height: var(--won-line-height-xs);
+  --font-size-won-2xs: var(--won-font-size-2xs);
+  --font-size-won-2xs--line-height: var(--won-line-height-2xs);
+
+  /* Spacing */
+  --spacing-won-0: var(--won-spacing-0);
+  --spacing-won-1: var(--won-spacing-1);
+  --spacing-won-2: var(--won-spacing-2);
+  --spacing-won-3: var(--won-spacing-3);
+  --spacing-won-4: var(--won-spacing-4);
+  --spacing-won-6: var(--won-spacing-6);
+  --spacing-won-8: var(--won-spacing-8);
+  --spacing-won-12: var(--won-spacing-12);
+  --spacing-won-16: var(--won-spacing-16);
+
+  /* Radius */
+  --radius-won-sm: var(--won-radius-sm);
+  --radius-won-md: var(--won-radius-md);
+  --radius-won-lg: var(--won-radius-lg);
+  --radius-won-xl: var(--won-radius-xl);
+  --radius-won-full: var(--won-radius-full);
 }
 
 @layer base {
   body {
-    background-color: var(--color-won-colors-surface-background);
-    color: var(--color-won-colors-content-primary);
-    font-family: var(--font-won-font-body);
+    background-color: var(--won-color-surface-background);
+    color: var(--won-color-content-primary);
+    font-family: var(--won-font-family-body);
   }
 
   h1 {
-    font-family: var(--font-won-font-heading);
-    font-weight: var(--font-weight-won-extrabold);
-    font-size: var(--font-size-won-text-40);
-    line-height: var(--font-size-won-text-40--line-height);
+    font-family: var(--won-font-family-heading);
+    font-weight: var(--won-font-weight-extrabold);
+    font-size: var(--won-font-size-2xl);
+    line-height: var(--won-line-height-2xl);
   }
 
   h2 {
-    font-family: var(--font-won-font-heading);
-    font-weight: var(--font-weight-won-bold);
-    font-size: var(--font-size-won-text-32);
-    line-height: var(--font-size-won-text-32--line-height);
+    font-family: var(--won-font-family-heading);
+    font-weight: var(--won-font-weight-bold);
+    font-size: var(--won-font-size-xl);
+    line-height: var(--won-line-height-xl);
   }
 
   h3 {
-    font-family: var(--font-won-font-heading);
-    font-weight: var(--font-weight-won-bold);
-    font-size: var(--font-size-won-text-h1);
-    line-height: var(--font-size-won-text-h1--line-height);
+    font-family: var(--won-font-family-heading);
+    font-weight: var(--won-font-weight-bold);
+    font-size: var(--won-font-size-lg);
+    line-height: var(--won-line-height-lg);
   }
 
   h4 {
-    font-family: var(--font-won-font-heading);
-    font-weight: var(--font-weight-won-semibold);
-    font-size: var(--font-size-won-text-h2);
-    line-height: var(--font-size-won-text-h2--line-height);
+    font-family: var(--won-font-family-heading);
+    font-weight: var(--won-font-weight-semibold);
+    font-size: var(--won-font-size-md);
+    line-height: var(--won-line-height-md);
   }
 
   p {
-    font-family: var(--font-won-font-body);
-    font-weight: var(--font-weight-won-regular);
-    font-size: var(--font-size-won-text-p1);
-    line-height: var(--font-size-won-text-p1--line-height);
+    font-family: var(--won-font-family-body);
+    font-weight: var(--won-font-weight-regular);
+    font-size: var(--won-font-size-base);
+    line-height: var(--won-line-height-base);
   }
 
   small {
-    font-size: var(--font-size-won-text-p3);
-    line-height: var(--font-size-won-text-p3--line-height);
+    font-size: var(--won-font-size-xs);
+    line-height: var(--won-line-height-xs);
   }
 }
 
