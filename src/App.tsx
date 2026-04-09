@@ -23,9 +23,16 @@ import {
   CreditCard,
   Bell,
   ArrowRight,
-  ArrowLeft
+  ArrowLeft,
+  AlertCircle,
+  Info,
+  CheckCircle,
+  XCircle,
+  Tag
 } from 'lucide-react';
 import { Button } from './components/Button';
+import { Badge } from './components/Badge';
+import { Alert } from './components/Alert';
 
 interface Toast {
   id: number;
@@ -109,7 +116,10 @@ const EXPORT_THEME_BLOCK = `:root {
   --won-radius-full: 9999px;
 }`;
 
+type Page = 'tokens' | 'components';
+
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<Page>('tokens');
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const addToast = useCallback((message: string) => {
@@ -139,14 +149,46 @@ export default function App() {
           <p className="text-won-2xs text-won-content-tertiary uppercase tracking-widest font-won-semibold">Sistema de Design v1.0</p>
         </div>
         <nav className="flex-1 p-won-4 space-y-won-1">
-          <NavItem href="#foundation" icon={<Layers className="w-4 h-4" />} label="Fundação" />
-          <NavItem href="#colors" icon={<Palette className="w-4 h-4" />} label="Cores" />
-          <NavItem href="#typography" icon={<Type className="w-4 h-4" />} label="Tipografia" />
-          <NavItem href="#spacing" icon={<Ruler className="w-4 h-4" />} label="Espaçamento" />
-          <NavItem href="#radius" icon={<Square className="w-4 h-4" />} label="Raio de Borda" />
-          <NavItem href="#base-styles" icon={<Zap className="w-4 h-4" />} label="Estilos Base" />
-          <NavItem href="#components" icon={<Box className="w-4 h-4" />} label="Componentes" />
-          <NavItem href="#export" icon={<Terminal className="w-4 h-4" />} label="Exportação" />
+          <button 
+            onClick={() => setCurrentPage('tokens')}
+            className={`w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all font-won-semibold group ${
+              currentPage === 'tokens' 
+                ? 'bg-won-brand-primary-0 text-white' 
+                : 'text-won-content-secondary hover:text-won-brand-primary-0 hover:bg-won-brand-secondary'
+            }`}
+          >
+            <Layers className="w-4 h-4" /> Tokens
+          </button>
+          <button 
+            onClick={() => setCurrentPage('components')}
+            className={`w-full flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all font-won-semibold group ${
+              currentPage === 'components' 
+                ? 'bg-won-brand-primary-0 text-white' 
+                : 'text-won-content-secondary hover:text-won-brand-primary-0 hover:bg-won-brand-secondary'
+            }`}
+          >
+            <Box className="w-4 h-4" /> Componentes
+          </button>
+          
+          <div className="pt-won-8 pb-won-2 px-won-4">
+            <span className="text-[10px] font-bold text-won-content-tertiary uppercase tracking-widest">Navegação Interna</span>
+          </div>
+
+          {currentPage === 'tokens' ? (
+            <>
+              <NavItem href="#colors" icon={<Palette className="w-4 h-4" />} label="Cores" />
+              <NavItem href="#typography" icon={<Type className="w-4 h-4" />} label="Tipografia" />
+              <NavItem href="#spacing" icon={<Ruler className="w-4 h-4" />} label="Espaçamento" />
+              <NavItem href="#radius" icon={<Square className="w-4 h-4" />} label="Raio de Borda" />
+            </>
+          ) : (
+            <>
+              <NavItem href="#buttons" icon={<ShoppingCart className="w-4 h-4" />} label="Botões" />
+              <NavItem href="#badges" icon={<Tag className="w-4 h-4" />} label="Badges" />
+              <NavItem href="#alerts" icon={<AlertCircle className="w-4 h-4" />} label="Alertas" />
+              <NavItem href="#cards" icon={<Square className="w-4 h-4" />} label="Cards" />
+            </>
+          )}
         </nav>
         <div className="p-won-6 border-t border-won-border-default">
           <button 
@@ -172,394 +214,498 @@ export default function App() {
         </header>
 
         <div className="max-w-5xl mx-auto px-8 py-16 space-y-32">
-          {/* Foundation */}
-          <section id="foundation" className="scroll-mt-24 space-y-won-8">
-            <div className="space-y-won-4">
-              <h1 className="font-won-heading font-won-extrabold text-won-2xl tracking-tight text-won-brand-tertiary">
-                Fundação
-              </h1>
-              <p className="text-won-md text-won-content-secondary leading-relaxed max-w-3xl">
-                O sistema de design Won Cred fornece uma linguagem unificada para nossos produtos digitais. 
-                Ele é construído sobre uma base de precisão, clareza e confiança.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-won-6">
-              <FeatureCard 
-                icon={<Zap className="w-5 h-5 text-won-complementary-orange" />}
-                title="Tokens Atômicos"
-                description="Os menores blocos de construção da nossa interface, de cores a espaçamento."
-              />
-              <FeatureCard 
-                icon={<Code className="w-5 h-5 text-won-complementary-blue" />}
-                title="Pronto para Dev"
-                description="Os tokens possuem prefixo e estão prontos para implementação instantânea."
-              />
-              <FeatureCard 
-                icon={<Terminal className="w-5 h-5 text-won-complementary-green" />}
-                title="Consistente"
-                description="Garante uma experiência coesa em todas as plataformas."
-              />
-            </div>
-          </section>
-
-          {/* Colors */}
-          <section id="colors" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Cores" icon={<Palette className="w-6 h-6" />} />
-            
-            <div className="space-y-20">
-              <ColorGrid 
-                title="Marca" 
-                onCopy={copyToClipboard}
-                tokens={[
-                  { name: 'won-color-brand-primary-0', value: '#B01F29' },
-                  { name: 'won-color-brand-primary-1', value: '#892028' },
-                  { name: 'won-color-brand-primary-2', value: '#64131A' },
-                  { name: 'won-color-brand-secondary', value: '#F4F4F2' },
-                  { name: 'won-color-brand-tertiary', value: '#1D1D1B' },
-                ]}
-              />
-              <ColorGrid 
-                title="Superfície" 
-                onCopy={copyToClipboard}
-                tokens={[
-                  { name: 'won-color-surface-background', value: '#FEFEFE' },
-                  { name: 'won-color-surface-cards', value: '#FFFFFF' },
-                ]}
-              />
-              <ColorGrid 
-                title="Complementares" 
-                onCopy={copyToClipboard}
-                tokens={[
-                  { name: 'won-color-complementary-green', value: '#15B37D' },
-                  { name: 'won-color-complementary-orange', value: '#E67E22' },
-                  { name: 'won-color-complementary-red', value: '#C0392B' },
-                  { name: 'won-color-complementary-blue', value: '#3470B7' },
-                ]}
-              />
-              <div className="grid md:grid-cols-2 gap-12">
-                <ColorGrid 
-                  title="Interativos" 
-                  onCopy={copyToClipboard}
-                  tokens={[
-                    { name: 'won-color-interactive-pressed', value: 'rgba(0,0,0,0.2)' },
-                    { name: 'won-color-interactive-hover', value: '#FFFFFF' },
-                    { name: 'won-color-interactive-active', value: '#FFFFFF' },
-                  ]}
-                />
-                <ColorGrid 
-                  title="Borda" 
-                  onCopy={copyToClipboard}
-                  tokens={[
-                    { name: 'won-color-border-default', value: '#E6E6E6' },
-                  ]}
-                />
-              </div>
-              <ColorGrid 
-                title="Conteúdo" 
-                onCopy={copyToClipboard}
-                tokens={[
-                  { name: 'won-color-content-primary', value: '#1D1D1B' },
-                  { name: 'won-color-content-secondary', value: '#4A5565' },
-                  { name: 'won-color-content-tertiary', value: '#6A7282' },
-                ]}
-              />
-            </div>
-          </section>
-
-          {/* Typography */}
-          <section id="typography" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Tipografia" icon={<Type className="w-6 h-6" />} />
-            
-            <div className="space-y-16">
-              {/* Font Families */}
-              <div className="grid md:grid-cols-2 gap-8">
-                <FontFamilyCard 
-                  name="Degular Variable" 
-                  token="won-font-family-heading" 
-                  usage="Uso: Títulos, Cabeçalhos, Botões"
-                  onCopy={copyToClipboard}
-                  className="font-won-heading"
-                />
-                <FontFamilyCard 
-                  name="Manrope" 
-                  token="won-font-family-body" 
-                  usage="Uso: Texto de Corpo, Parágrafos, Dados"
-                  onCopy={copyToClipboard}
-                  className="font-won-body"
-                />
-              </div>
-
-              {/* Type Scale */}
-              <div className="space-y-6">
-                <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Escala Tipográfica</h3>
-                <div className="bg-white border border-won-border-default rounded-2xl overflow-hidden shadow-sm">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="bg-won-brand-secondary/50 border-b border-won-border-default">
-                        <th className="px-8 py-4 text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-wider">Prévia</th>
-                        <th className="px-8 py-4 text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-wider">Token</th>
-                        <th className="px-8 py-4 text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-wider">Especificações</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-won-border-default">
-                      <TypeRow onCopy={copyToClipboard} token="won-2xl" size="2.5rem (40px)" line="3rem (48px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-xl" size="2rem (32px)" line="2.5rem (40px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-lg" size="1.5rem (24px)" line="2rem (32px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-md" size="1.25rem (20px)" line="1.75rem (28px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-base" size="1rem (16px)" line="1.5rem (24px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-sm" size="0.875rem (14px)" line="1.375rem (22px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-xs" size="0.75rem (12px)" line="1.25rem (20px)" />
-                      <TypeRow onCopy={copyToClipboard} token="won-2xs" size="0.625rem (10px)" line="1rem (16px)" />
-                    </tbody>
-                  </table>
+          {currentPage === 'tokens' ? (
+            <>
+              {/* Foundation */}
+              <section id="foundation" className="scroll-mt-24 space-y-won-8">
+                <div className="space-y-won-4">
+                  <h1 className="font-won-heading font-won-extrabold text-won-2xl tracking-tight text-won-brand-tertiary">
+                    Tokens de Design
+                  </h1>
+                  <p className="text-won-md text-won-content-secondary leading-relaxed max-w-3xl">
+                    Os tokens são a base do nosso sistema. Eles representam as decisões visuais fundamentais 
+                    que garantem consistência em toda a plataforma Won Cred.
+                  </p>
                 </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Spacing */}
-          <section id="spacing" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Espaçamento" icon={<Ruler className="w-6 h-6" />} />
-            
-            <div className="space-y-16">
-              <div className="space-y-6">
-                <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Escala de Espaçamento</h3>
-                <div className="bg-white border border-won-border-default rounded-2xl p-4 space-y-2">
-                  <SpacingRow onCopy={copyToClipboard} token="1" value="0.25rem (4px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="2" value="0.5rem (8px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="3" value="0.75rem (12px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="4" value="1rem (16px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="6" value="1.5rem (24px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="8" value="2rem (32px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="12" value="3rem (48px)" />
-                  <SpacingRow onCopy={copyToClipboard} token="16" value="4rem (64px)" />
+                <div className="grid md:grid-cols-3 gap-won-6">
+                  <FeatureCard 
+                    icon={<Zap className="w-5 h-5 text-won-complementary-orange" />}
+                    title="Tokens Atômicos"
+                    description="Os menores blocos de construção da nossa interface, de cores a espaçamento."
+                  />
+                  <FeatureCard 
+                    icon={<Code className="w-5 h-5 text-won-complementary-blue" />}
+                    title="Pronto para Dev"
+                    description="Os tokens possuem prefixo e estão prontos para implementação instantânea."
+                  />
+                  <FeatureCard 
+                    icon={<Terminal className="w-5 h-5 text-won-complementary-green" />}
+                    title="Consistente"
+                    description="Garante uma experiência coesa em todas as plataformas."
+                  />
                 </div>
-              </div>
+              </section>
 
-              <div className="grid md:grid-cols-2 gap-12">
-                <div className="space-y-6">
-                  <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Referência: Botões</h3>
-                  <div className="p-8 bg-white border border-won-border-default rounded-2xl flex flex-col items-center gap-8">
-                    <div className="relative group">
-                      <Button>Botão Padrão</Button>
-                      <div className="absolute -inset-x-4 top-0 bottom-0 border-x border-dashed border-won-brand-primary-0/40 pointer-events-none flex items-center justify-between px-1">
-                        <span className="text-[8px] font-mono text-won-brand-primary-0 -rotate-90">won-6</span>
-                        <span className="text-[8px] font-mono text-won-brand-primary-0 -rotate-90">won-6</span>
-                      </div>
-                      <div className="absolute -inset-y-3 left-0 right-0 border-y border-dashed border-won-brand-primary-0/40 pointer-events-none flex flex-col justify-between py-1">
-                        <span className="text-[8px] font-mono text-won-brand-primary-0 text-center">won-3</span>
-                        <span className="text-[8px] font-mono text-won-brand-primary-0 text-center">won-3</span>
-                      </div>
+              {/* Colors */}
+              <section id="colors" className="scroll-mt-24 space-y-12">
+                <SectionHeader title="Cores" icon={<Palette className="w-6 h-6" />} />
+                
+                <div className="space-y-20">
+                  <ColorGrid 
+                    title="Marca" 
+                    onCopy={copyToClipboard}
+                    tokens={[
+                      { name: 'won-color-brand-primary-0', value: '#B01F29' },
+                      { name: 'won-color-brand-primary-1', value: '#892028' },
+                      { name: 'won-color-brand-primary-2', value: '#64131A' },
+                      { name: 'won-color-brand-secondary', value: '#F4F4F2' },
+                      { name: 'won-color-brand-tertiary', value: '#1D1D1B' },
+                    ]}
+                  />
+                  <ColorGrid 
+                    title="Superfície" 
+                    onCopy={copyToClipboard}
+                    tokens={[
+                      { name: 'won-color-surface-background', value: '#FEFEFE' },
+                      { name: 'won-color-surface-cards', value: '#FFFFFF' },
+                    ]}
+                  />
+                  <ColorGrid 
+                    title="Complementares" 
+                    onCopy={copyToClipboard}
+                    tokens={[
+                      { name: 'won-color-complementary-green', value: '#15B37D' },
+                      { name: 'won-color-complementary-orange', value: '#E67E22' },
+                      { name: 'won-color-complementary-red', value: '#C0392B' },
+                      { name: 'won-color-complementary-blue', value: '#3470B7' },
+                    ]}
+                  />
+                  <div className="grid md:grid-cols-2 gap-12">
+                    <ColorGrid 
+                      title="Interativos" 
+                      onCopy={copyToClipboard}
+                      tokens={[
+                        { name: 'won-color-interactive-pressed', value: 'rgba(0,0,0,0.2)' },
+                        { name: 'won-color-interactive-hover', value: '#FFFFFF' },
+                        { name: 'won-color-interactive-active', value: '#FFFFFF' },
+                      ]}
+                    />
+                    <ColorGrid 
+                      title="Borda" 
+                      onCopy={copyToClipboard}
+                      tokens={[
+                        { name: 'won-color-border-default', value: '#E6E6E6' },
+                      ]}
+                    />
+                  </div>
+                  <ColorGrid 
+                    title="Conteúdo" 
+                    onCopy={copyToClipboard}
+                    tokens={[
+                      { name: 'won-color-content-primary', value: '#1D1D1B' },
+                      { name: 'won-color-content-secondary', value: '#4A5565' },
+                      { name: 'won-color-content-tertiary', value: '#6A7282' },
+                    ]}
+                  />
+                </div>
+              </section>
+
+              {/* Typography */}
+              <section id="typography" className="scroll-mt-24 space-y-12">
+                <SectionHeader title="Tipografia" icon={<Type className="w-6 h-6" />} />
+                
+                <div className="space-y-16">
+                  {/* Font Families */}
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <FontFamilyCard 
+                      name="Degular Variable" 
+                      token="won-font-family-heading" 
+                      usage="Uso: Títulos, Cabeçalhos, Botões"
+                      onCopy={copyToClipboard}
+                      className="font-won-heading"
+                    />
+                    <FontFamilyCard 
+                      name="Manrope" 
+                      token="won-font-family-body" 
+                      usage="Uso: Texto de Corpo, Parágrafos, Dados"
+                      onCopy={copyToClipboard}
+                      className="font-won-body"
+                    />
+                  </div>
+
+                  {/* Type Scale */}
+                  <div className="space-y-6">
+                    <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Escala Tipográfica</h3>
+                    <div className="bg-white border border-won-border-default rounded-2xl overflow-hidden shadow-sm">
+                      <table className="w-full text-left border-collapse">
+                        <thead>
+                          <tr className="bg-won-brand-secondary/50 border-b border-won-border-default">
+                            <th className="px-8 py-4 text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-wider">Prévia</th>
+                            <th className="px-8 py-4 text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-wider">Token</th>
+                            <th className="px-8 py-4 text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-wider">Especificações</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-won-border-default">
+                          <TypeRow onCopy={copyToClipboard} token="won-2xl" size="2.5rem (40px)" line="3rem (48px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-xl" size="2rem (32px)" line="2.5rem (40px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-lg" size="1.5rem (24px)" line="2rem (32px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-md" size="1.25rem (20px)" line="1.75rem (28px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-base" size="1rem (16px)" line="1.5rem (24px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-sm" size="0.875rem (14px)" line="1.375rem (22px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-xs" size="0.75rem (12px)" line="1.25rem (20px)" />
+                          <TypeRow onCopy={copyToClipboard} token="won-2xs" size="0.625rem (10px)" line="1rem (16px)" />
+                        </tbody>
+                      </table>
                     </div>
-                    <p className="text-won-xs text-won-content-secondary text-center">
-                      Botões utilizam <code className="text-won-brand-primary-0">won-6</code> (24px) de padding horizontal e <code className="text-won-brand-primary-0">won-3</code> (12px) vertical.
-                    </p>
                   </div>
                 </div>
+              </section>
 
+              {/* Spacing */}
+              <section id="spacing" className="scroll-mt-24 space-y-12">
+                <SectionHeader title="Espaçamento" icon={<Ruler className="w-6 h-6" />} />
+                
+                <div className="space-y-16">
+                  <div className="space-y-6">
+                    <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Escala de Espaçamento</h3>
+                    <div className="bg-white border border-won-border-default rounded-2xl p-4 space-y-2">
+                      <SpacingRow onCopy={copyToClipboard} token="1" value="0.25rem (4px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="2" value="0.5rem (8px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="3" value="0.75rem (12px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="4" value="1rem (16px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="6" value="1.5rem (24px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="8" value="2rem (32px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="12" value="3rem (48px)" />
+                      <SpacingRow onCopy={copyToClipboard} token="16" value="4rem (64px)" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Border Radius */}
+              <section id="radius" className="scroll-mt-24 space-y-12">
+                <SectionHeader title="Raio de Borda" icon={<Square className="w-6 h-6" />} />
+                
+                <div className="space-y-16">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <RadiusCard onCopy={copyToClipboard} token="sm" value="0.25rem (4px)" />
+                    <RadiusCard onCopy={copyToClipboard} token="md" value="0.5rem (8px)" />
+                    <RadiusCard onCopy={copyToClipboard} token="lg" value="0.75rem (12px)" />
+                    <RadiusCard onCopy={copyToClipboard} token="xl" value="1rem (16px)" />
+                    <RadiusCard onCopy={copyToClipboard} token="full" value="9999px" />
+                  </div>
+                </div>
+              </section>
+
+              {/* Base Styles */}
+              <section id="base-styles" className="scroll-mt-24 space-y-12">
+                <SectionHeader title="Estilos Base" icon={<Zap className="w-6 h-6" />} />
                 <div className="space-y-6">
-                  <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Referência: Cards</h3>
-                  <div className="p-8 bg-white border border-won-border-default rounded-2xl space-y-4">
-                    <div className="p-won-6 bg-won-brand-secondary rounded-won-xl border border-won-border-default relative">
+                  <p className="text-won-md text-won-content-secondary leading-relaxed max-w-3xl">
+                    Estes são os estilos padrão aplicados aos elementos HTML básicos. 
+                    Eles garantem que, mesmo sem classes utilitárias específicas, seu conteúdo permaneça alinhado à marca.
+                  </p>
+                  <div className="p-8 bg-white border border-won-border-default rounded-2xl space-y-8">
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono text-won-content-tertiary">Elemento H1</span>
+                      <h1>Um pequeno jabuti xereta viu dez cegonhas felizes</h1>
+                    </div>
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono text-won-content-tertiary">Elemento H2</span>
+                      <h2>Um pequeno jabuti xereta viu dez cegonhas felizes</h2>
+                    </div>
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono text-won-content-tertiary">Elemento H3</span>
+                      <h3>Um pequeno jabuti xereta viu dez cegonhas felizes</h3>
+                    </div>
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono text-won-content-tertiary">Elemento de Parágrafo</span>
+                      <p>
+                        O sistema de design Won Cred fornece uma linguagem unificada para nossos produtos digitais. 
+                        Ele é construído sobre uma base de precisão, clareza e confiança. 
+                        Nossa tipografia garante que a informação seja acessível e legível em todas as plataformas.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Developer Export */}
+              <section id="export" className="scroll-mt-24 space-y-won-8">
+                <SectionHeader title="Exportação para Desenvolvedores" icon={<Terminal className="w-6 h-6" />} />
+                <div className="bg-won-brand-tertiary rounded-won-2xl p-won-8 relative group">
+                  <div className="flex items-center justify-between mb-won-6">
+                    <div className="flex items-center gap-won-2">
+                      <div className="w-won-3 h-won-3 rounded-won-full bg-red-500" />
+                      <div className="w-won-3 h-won-3 rounded-won-full bg-yellow-500" />
+                      <div className="w-won-3 h-won-3 rounded-won-full bg-green-500" />
+                      <span className="ml-won-4 text-won-2xs text-won-content-tertiary font-mono">tailwind-theme.css</span>
+                    </div>
+                    <button 
+                      onClick={() => copyToClipboard(EXPORT_THEME_BLOCK)}
+                      className="px-won-4 py-won-2 bg-white/10 text-white rounded-won-lg text-won-2xs font-won-semibold flex items-center gap-won-2 hover:bg-white/20 transition-colors"
+                    >
+                      <Copy className="w-3 h-3" /> Copiar Tema
+                    </button>
+                  </div>
+                  <pre className="text-won-xs text-won-brand-secondary font-mono overflow-x-auto leading-relaxed">
+                    {EXPORT_THEME_BLOCK}
+                  </pre>
+                </div>
+              </section>
+            </>
+          ) : (
+            <>
+              {/* Components Page */}
+              <section id="components-intro" className="scroll-mt-24 space-y-won-8">
+                <div className="space-y-won-4">
+                  <h1 className="font-won-heading font-won-extrabold text-won-2xl tracking-tight text-won-brand-tertiary">
+                    Componentes
+                  </h1>
+                  <p className="text-won-md text-won-content-secondary leading-relaxed max-w-3xl">
+                    Nossa biblioteca de componentes é construída utilizando os tokens de design, 
+                    garantindo acessibilidade, performance e consistência visual.
+                  </p>
+                </div>
+              </section>
+
+              {/* Buttons */}
+              <section id="buttons" className="scroll-mt-24 space-y-won-12">
+                <SectionHeader title="Botões" icon={<ShoppingCart className="w-6 h-6" />} />
+                
+                <div className="space-y-won-16">
+                  {/* Variants & Colors */}
+                  <div className="space-y-won-8">
+                    <div className="space-y-won-2">
+                      <h3 className="text-won-md font-won-bold text-won-brand-tertiary">Variantes e Esquemas de Cores</h3>
+                      <p className="text-won-sm text-won-content-secondary">
+                        Três variantes principais para diferentes níveis de hierarquia visual.
+                      </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-3 gap-won-8">
+                      <ComponentDemo title="Solid (Principal)" onCopy={copyToClipboard} tailwind="bg-won-brand-primary-0 text-white rounded-won-xl px-won-6 py-won-3">
+                        <div className="flex flex-col gap-won-3 w-full">
+                          <Button colorScheme="primary">Primary Solid</Button>
+                          <Button colorScheme="confirm">Confirm Solid</Button>
+                          <Button colorScheme="cancel">Cancel Solid</Button>
+                        </div>
+                      </ComponentDemo>
+
+                      <ComponentDemo title="Outline (Secundário)" onCopy={copyToClipboard} tailwind="border-2 border-won-brand-primary-0 text-won-brand-primary-0 rounded-won-xl px-won-6 py-won-3">
+                        <div className="flex flex-col gap-won-3 w-full">
+                          <Button variant="outline" colorScheme="primary">Primary Outline</Button>
+                          <Button variant="outline" colorScheme="confirm">Confirm Outline</Button>
+                          <Button variant="outline" colorScheme="neutral">Neutral Outline</Button>
+                        </div>
+                      </ComponentDemo>
+
+                      <ComponentDemo title="Text (Terciário)" onCopy={copyToClipboard} tailwind="text-won-brand-primary-0 hover:bg-won-brand-primary-0/10 rounded-won-xl px-won-6 py-won-3">
+                        <div className="flex flex-col gap-won-3 w-full">
+                          <Button variant="text" colorScheme="primary">Primary Text</Button>
+                          <Button variant="text" colorScheme="confirm">Confirm Text</Button>
+                          <Button variant="text" colorScheme="neutral">Neutral Text</Button>
+                        </div>
+                      </ComponentDemo>
+                    </div>
+                  </div>
+
+                  {/* Sizes */}
+                  <div className="space-y-won-8">
+                    <div className="space-y-won-2">
+                      <h3 className="text-won-md font-won-bold text-won-brand-tertiary">Tamanhos</h3>
+                      <p className="text-won-sm text-won-content-secondary">
+                        Escalabilidade para diferentes contextos de interface.
+                      </p>
+                    </div>
+
+                    <ComponentDemo title="Escala de Tamanhos" onCopy={copyToClipboard} tailwind="px-won-3 py-won-1.5 text-won-xs | px-won-6 py-won-3 text-won-sm | px-won-8 py-won-4 text-won-base">
+                      <div className="flex items-end gap-won-6">
+                        <div className="flex flex-col items-center gap-won-2">
+                          <Button size="sm">Small</Button>
+                          <span className="text-won-2xs font-mono text-won-content-tertiary">SM (32px)</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-won-2">
+                          <Button size="md">Medium</Button>
+                          <span className="text-won-2xs font-mono text-won-content-tertiary">MD (44px)</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-won-2">
+                          <Button size="lg">Large</Button>
+                          <span className="text-won-2xs font-mono text-won-content-tertiary">LG (56px)</span>
+                        </div>
+                      </div>
+                    </ComponentDemo>
+                  </div>
+
+                  {/* Icons Placement */}
+                  <div className="space-y-won-8">
+                    <div className="space-y-won-2">
+                      <h3 className="text-won-md font-won-bold text-won-brand-tertiary">Ícones e Posicionamento</h3>
+                      <p className="text-won-sm text-won-content-secondary">
+                        Suporte flexível para ícones em qualquer posição ou modo "apenas ícone".
+                      </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-won-8">
+                      <ComponentDemo title="Composição de Ícones" onCopy={copyToClipboard} tailwind="flex items-center gap-won-2">
+                        <div className="flex flex-wrap gap-won-4">
+                          <Button leftIcon={<ShoppingCart className="w-4 h-4" />}>Ícone Esquerda</Button>
+                          <Button rightIcon={<ArrowRight className="w-4 h-4" />}>Ícone Direita</Button>
+                          <Button leftIcon={<CreditCard className="w-4 h-4" />} rightIcon={<Zap className="w-4 h-4" />}>Ambos</Button>
+                        </div>
+                      </ComponentDemo>
+
+                      <ComponentDemo title="Apenas Ícone (Icon Only)" onCopy={copyToClipboard} tailwind="p-won-3 rounded-won-xl">
+                        <div className="flex items-center gap-won-4">
+                          <Button size="sm" leftIcon={<Bell className="w-4 h-4" />} />
+                          <Button size="md" leftIcon={<ShoppingCart className="w-4 h-4" />} />
+                          <Button size="lg" leftIcon={<CreditCard className="w-5 h-5" />} />
+                        </div>
+                      </ComponentDemo>
+                    </div>
+                  </div>
+
+                  {/* States Documentation */}
+                  <div className="bg-won-brand-tertiary rounded-won-2xl p-won-8 overflow-hidden">
+                    <div className="flex items-center gap-won-3 mb-won-8">
+                      <Zap className="w-5 h-5 text-won-complementary-orange" />
+                      <h4 className="text-white font-won-bold text-won-md">Estados e Comportamento</h4>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-won-8 text-white/80 text-won-xs">
+                      <div className="space-y-won-2">
+                        <div className="font-won-bold text-white">Hover</div>
+                        <p>Aumenta a profundidade visual ou altera levemente o brilho para indicar interatividade.</p>
+                      </div>
+                      <div className="space-y-won-2">
+                        <div className="font-won-bold text-white">Active / Pressed</div>
+                        <p>Reduz levemente a escala (98%) para fornecer feedback tátil imediato ao clique.</p>
+                      </div>
+                      <div className="space-y-won-2">
+                        <div className="font-won-bold text-white">Disabled</div>
+                        <p>Reduz a opacidade e remove eventos de ponteiro para ações não disponíveis.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Badges Section */}
+              <section id="badges" className="scroll-mt-24 space-y-won-12">
+                <SectionHeader title="Badges" icon={<Tag className="w-6 h-6" />} />
+                
+                <div className="grid lg:grid-cols-2 gap-won-8">
+                  <ComponentDemo 
+                    title="Status de Processo" 
+                    onCopy={copyToClipboard}
+                    tailwind="bg-won-complementary-blue/20 border-won-complementary-blue/60 text-won-complementary-blue rounded-won-md px-won-2 py-won-1 text-won-2xs font-won-medium"
+                  >
+                    <div className="flex flex-wrap gap-won-4">
+                      <Badge variant="info">Em andamento</Badge>
+                      <Badge variant="success">Concluído</Badge>
+                      <Badge variant="error">Expirado</Badge>
+                    </div>
+                  </ComponentDemo>
+
+                  <ComponentDemo 
+                    title="Contadores e Tags" 
+                    onCopy={copyToClipboard}
+                    tailwind="bg-won-complementary-blue/20 border-won-complementary-blue/20 text-won-complementary-blue rounded-won-md px-won-3 py-won-1 text-won-2xs font-won-medium"
+                  >
+                    <div className="flex flex-wrap gap-won-4">
+                      <Badge variant="info">3 cartas</Badge>
+                      <Badge variant="warning">Combinação de Créditos</Badge>
+                    </div>
+                  </ComponentDemo>
+                </div>
+              </section>
+
+              {/* Alerts Section */}
+              <section id="alerts" className="scroll-mt-24 space-y-won-12">
+                <SectionHeader title="Alertas" icon={<AlertCircle className="w-6 h-6" />} />
+                
+                <div className="space-y-won-8">
+                  <div className="grid lg:grid-cols-2 gap-won-8">
+                    <ComponentDemo 
+                      title="Informativo" 
+                      onCopy={copyToClipboard}
+                      tailwind="bg-won-complementary-blue/10 border-won-complementary-blue/20 text-won-complementary-blue rounded-won-lg p-won-3"
+                    >
+                      <Alert title="Você paga menos" variant="info">
+                        Seus dados são protegidos com criptografia bancária. <span className="font-won-bold underline cursor-pointer">Saiba mais</span>
+                      </Alert>
+                    </ComponentDemo>
+
+                    <ComponentDemo 
+                      title="Aviso / Reserva" 
+                      onCopy={copyToClipboard}
+                      tailwind="bg-won-complementary-orange/10 border-won-complementary-orange/20 text-won-complementary-orange rounded-won-lg p-won-3"
+                    >
+                      <Alert title="Sinal de Reserva" variant="warning">
+                        Para fazer a reserva inicial da sua carta você deve pagar um sinal referente a 1% do valor do seu crédito.
+                      </Alert>
+                    </ComponentDemo>
+                  </div>
+
+                  <ComponentDemo 
+                    title="Alerta de Sistema" 
+                    onCopy={copyToClipboard}
+                    tailwind="bg-[#FAE5D3] border border-black/10 rounded-won-lg shadow-lg p-won-6"
+                  >
+                    <div className="p-won-6 bg-[#FAE5D3] border border-black/10 rounded-won-lg shadow-lg flex items-start gap-won-4 relative w-full">
+                      <AlertCircle className="w-won-8 h-won-8 text-won-complementary-orange shrink-0" />
+                      <div className="space-y-won-1">
+                        <h4 className="text-won-md font-won-bold text-won-complementary-orange">Adicionar novamente</h4>
+                        <p className="text-won-sm text-won-complementary-orange leading-relaxed">
+                          As cartas selecionadas já estão no carrinho, você não pode adicionar novamente.
+                        </p>
+                      </div>
+                      <button className="absolute top-won-3 right-won-3 text-won-brand-tertiary/70 hover:text-won-brand-tertiary">
+                        <XCircle className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </ComponentDemo>
+                </div>
+              </section>
+
+              {/* Cards Section */}
+              <section id="cards" className="scroll-mt-24 space-y-won-12">
+                <SectionHeader title="Cards" icon={<Square className="w-6 h-6" />} />
+                
+                <div className="grid md:grid-cols-2 gap-won-12">
+                  <ComponentDemo 
+                    title="Referência de Espaçamento" 
+                    onCopy={copyToClipboard}
+                    tailwind="p-won-6 bg-white border border-won-border-default rounded-won-xl"
+                  >
+                    <div className="w-full p-won-6 bg-won-brand-secondary rounded-won-xl border border-won-border-default relative">
                       <div className="absolute inset-0 border-won-brand-primary-0/20 border-[24px] pointer-events-none" />
                       <div className="h-20 bg-white rounded-lg flex items-center justify-center text-won-2xs font-mono text-won-content-tertiary">
                         Conteúdo do Card
                       </div>
                       <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[8px] font-mono text-won-brand-primary-0">won-6 (24px) padding</div>
                     </div>
-                    <p className="text-won-xs text-won-content-secondary text-center">
-                      Cards padrão utilizam <code className="text-won-brand-primary-0">won-6</code> (24px) de padding interno.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+                  </ComponentDemo>
 
-          {/* Border Radius */}
-          <section id="radius" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Raio de Borda" icon={<Square className="w-6 h-6" />} />
-            
-            <div className="space-y-16">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <RadiusCard onCopy={copyToClipboard} token="sm" value="0.25rem (4px)" />
-                <RadiusCard onCopy={copyToClipboard} token="md" value="0.5rem (8px)" />
-                <RadiusCard onCopy={copyToClipboard} token="lg" value="0.75rem (12px)" />
-                <RadiusCard onCopy={copyToClipboard} token="xl" value="1rem (16px)" />
-                <RadiusCard onCopy={copyToClipboard} token="full" value="9999px" />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-12">
-                <div className="space-y-6">
-                  <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Aplicação: Botões</h3>
-                  <div className="p-8 bg-white border border-won-border-default rounded-2xl flex flex-wrap justify-center gap-6">
-                    <div className="space-y-2 text-center">
-                      <Button className="rounded-won-sm">Small Radius</Button>
-                      <span className="text-[10px] font-mono text-won-content-tertiary">won-sm</span>
-                    </div>
-                    <div className="space-y-2 text-center">
-                      <Button className="rounded-won-lg">Default Radius</Button>
-                      <span className="text-[10px] font-mono text-won-content-tertiary">won-lg</span>
-                    </div>
-                    <div className="space-y-2 text-center">
-                      <Button className="rounded-won-full">Full Radius</Button>
-                      <span className="text-[10px] font-mono text-won-content-tertiary">won-full</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  <h3 className="text-won-2xs font-won-bold text-won-content-tertiary uppercase tracking-widest">Aplicação: Cards</h3>
-                  <div className="p-8 bg-white border border-won-border-default rounded-2xl flex flex-col gap-6">
-                    <div className="p-4 bg-won-brand-secondary rounded-won-xl border border-won-border-default text-center">
-                      <span className="text-won-xs font-won-bold">Card XL Radius</span>
-                      <p className="text-[10px] text-won-content-tertiary">Usado para containers principais</p>
-                    </div>
-                    <div className="p-4 bg-won-brand-secondary rounded-won-2xl border border-won-border-default text-center">
-                      <span className="text-won-xs font-won-bold">Card 2XL Radius</span>
-                      <p className="text-[10px] text-won-content-tertiary">Usado para modais e seções grandes</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Base Styles */}
-          <section id="base-styles" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Estilos Base" icon={<Zap className="w-6 h-6" />} />
-            <div className="space-y-6">
-              <p className="text-won-md text-won-content-secondary leading-relaxed max-w-3xl">
-                Estes são os estilos padrão aplicados aos elementos HTML básicos. 
-                Eles garantem que, mesmo sem classes utilitárias específicas, seu conteúdo permaneça alinhado à marca.
-              </p>
-              <div className="p-8 bg-white border border-won-border-default rounded-2xl space-y-8">
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-content-tertiary">Elemento H1</span>
-                  <h1>Um pequeno jabuti xereta viu dez cegonhas felizes</h1>
-                </div>
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-content-tertiary">Elemento H2</span>
-                  <h2>Um pequeno jabuti xereta viu dez cegonhas felizes</h2>
-                </div>
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-content-tertiary">Elemento H3</span>
-                  <h3>Um pequeno jabuti xereta viu dez cegonhas felizes</h3>
-                </div>
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-content-tertiary">Elemento de Parágrafo</span>
-                  <p>
-                    O sistema de design Won Cred fornece uma linguagem unificada para nossos produtos digitais. 
-                    Ele é construído sobre uma base de precisão, clareza e confiança. 
-                    Nossa tipografia garante que a informação seja acessível e legível em todas as plataformas.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Components */}
-          <section id="components" className="scroll-mt-24 space-y-won-12">
-            <SectionHeader title="Componentes" icon={<Box className="w-6 h-6" />} />
-            
-            <div className="space-y-won-16">
-              {/* Buttons */}
-              <div className="space-y-won-8">
-                <div className="space-y-won-2">
-                  <h3 className="text-won-md font-won-bold text-won-brand-tertiary">Botões</h3>
-                  <p className="text-won-sm text-won-content-secondary">
-                    Nossa biblioteca de botões suporta múltiplos estados, variantes e esquemas de cores.
-                  </p>
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-won-8">
-                  {/* Basic Variants */}
-                  <div className="p-won-8 bg-white border border-won-border-default rounded-won-2xl space-y-won-8">
-                    <div className="space-y-won-4">
-                      <span className="text-won-2xs font-mono text-won-content-tertiary uppercase tracking-widest">Variantes Básicas</span>
-                      <div className="flex flex-wrap gap-won-4">
-                        <div className="space-y-won-2">
-                          <span className="text-won-2xs block text-center text-won-content-tertiary">Solid</span>
-                          <Button>Próximo</Button>
-                        </div>
-                        <div className="space-y-won-2">
-                          <span className="text-won-2xs block text-center text-won-content-tertiary">Outline</span>
-                          <Button variant="outline" colorScheme="neutral">Voltar</Button>
-                        </div>
+                  <ComponentDemo 
+                    title="Variações de Raio" 
+                    onCopy={copyToClipboard}
+                    tailwind="rounded-won-2xl border border-won-border-default p-won-8"
+                  >
+                    <div className="flex flex-col gap-won-6 w-full">
+                      <div className="p-won-4 bg-won-brand-secondary rounded-won-xl border border-won-border-default text-center">
+                        <span className="text-won-xs font-won-bold">Card XL Radius</span>
+                        <p className="text-[10px] text-won-content-tertiary">Usado para containers principais</p>
+                      </div>
+                      <div className="p-won-4 bg-won-brand-secondary rounded-won-2xl border border-won-border-default text-center">
+                        <span className="text-won-xs font-won-bold">Card 2XL Radius</span>
+                        <p className="text-[10px] text-won-content-tertiary">Usado para modais e seções grandes</p>
                       </div>
                     </div>
-
-                    <div className="space-y-won-4">
-                      <span className="text-won-2xs font-mono text-won-content-tertiary uppercase tracking-widest">Com Ícones</span>
-                      <div className="flex flex-wrap gap-won-4">
-                        <Button icon={<ShoppingCart className="w-4 h-4" />}>Comprar Agora</Button>
-                        <Button variant="outline" icon={<ShoppingCart className="w-4 h-4" />}>Adicionar ao Carrinho</Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Color Schemes */}
-                  <div className="p-won-8 bg-white border border-won-border-default rounded-won-2xl space-y-won-8">
-                    <div className="space-y-won-4">
-                      <span className="text-won-2xs font-mono text-won-content-tertiary uppercase tracking-widest">Esquemas de Cores</span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-won-4">
-                        <Button colorScheme="confirm" icon={<CreditCard className="w-4 h-4" />}>Finalizar compra</Button>
-                        <Button colorScheme="primary" icon={<ArrowRight className="w-4 h-4" />}>Próximo Passo</Button>
-                        <Button colorScheme="neutral" icon={<Bell className="w-4 h-4" />}>Avise-me</Button>
-                        <Button colorScheme="cancel">Cancelar Pedido</Button>
-                      </div>
-                    </div>
-                  </div>
+                  </ComponentDemo>
                 </div>
-
-                {/* States Documentation */}
-                <div className="bg-won-brand-tertiary rounded-won-2xl p-won-8 overflow-hidden">
-                  <div className="flex items-center gap-won-3 mb-won-8">
-                    <Zap className="w-5 h-5 text-won-complementary-orange" />
-                    <h4 className="text-white font-won-bold text-won-md">Estados e Comportamento</h4>
-                  </div>
-                  <div className="grid md:grid-cols-3 gap-won-8 text-white/80 text-won-xs">
-                    <div className="space-y-won-2">
-                      <div className="font-won-bold text-white">Hover</div>
-                      <p>Aumenta a profundidade visual ou altera levemente o brilho para indicar interatividade.</p>
-                    </div>
-                    <div className="space-y-won-2">
-                      <div className="font-won-bold text-white">Active / Pressed</div>
-                      <p>Reduz levemente a escala (98%) para fornecer feedback tátil imediato ao clique.</p>
-                    </div>
-                    <div className="space-y-won-2">
-                      <div className="font-won-bold text-white">Disabled</div>
-                      <p>Reduz a opacidade e remove eventos de ponteiro para ações não disponíveis.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Developer Export */}
-          <section id="export" className="scroll-mt-24 space-y-won-8">
-            <SectionHeader title="Exportação para Desenvolvedores" icon={<Terminal className="w-6 h-6" />} />
-            <div className="bg-won-brand-tertiary rounded-won-2xl p-won-8 relative group">
-              <div className="flex items-center justify-between mb-won-6">
-                <div className="flex items-center gap-won-2">
-                  <div className="w-won-3 h-won-3 rounded-won-full bg-red-500" />
-                  <div className="w-won-3 h-won-3 rounded-won-full bg-yellow-500" />
-                  <div className="w-won-3 h-won-3 rounded-won-full bg-green-500" />
-                  <span className="ml-won-4 text-won-2xs text-won-content-tertiary font-mono">tailwind-theme.css</span>
-                </div>
-                <button 
-                  onClick={() => copyToClipboard(EXPORT_THEME_BLOCK)}
-                  className="px-won-4 py-won-2 bg-white/10 text-white rounded-won-lg text-won-2xs font-won-semibold flex items-center gap-won-2 hover:bg-white/20 transition-colors"
-                >
-                  <Copy className="w-3 h-3" /> Copiar Tema
-                </button>
-              </div>
-              <pre className="text-won-xs text-won-brand-secondary font-mono overflow-x-auto leading-relaxed">
-                {EXPORT_THEME_BLOCK}
-              </pre>
-            </div>
-          </section>
+              </section>
+            </>
+          )}
         </div>
       </main>
 
@@ -751,6 +897,30 @@ function RadiusCard({ token, value, onCopy }: { token: string; value: string; on
       <div className="space-y-1">
         <div className="text-won-xs font-mono text-center text-won-brand-tertiary">{value}</div>
         <code className="block text-center text-[10px] bg-won-brand-secondary py-1 rounded-md font-mono text-won-brand-primary-0">{tailwindClass}</code>
+      </div>
+    </div>
+  );
+}
+
+function ComponentDemo({ title, children, tailwind, onCopy }: { title: string; children: ReactNode; tailwind: string; onCopy: (t: string) => void }) {
+  return (
+    <div className="p-won-8 bg-white border border-won-border-default rounded-won-2xl space-y-won-6 group">
+      <div className="flex items-center justify-between">
+        <h4 className="text-won-2xs font-mono text-won-content-tertiary uppercase tracking-widest">{title}</h4>
+        <button 
+          onClick={() => onCopy(tailwind)}
+          className="flex items-center gap-won-2 text-won-2xs font-won-semibold text-won-brand-primary-0 opacity-0 group-hover:opacity-100 transition-opacity hover:underline"
+        >
+          <Copy className="w-3 h-3" /> Copiar Tailwind
+        </button>
+      </div>
+      <div className="flex flex-col items-center justify-center min-h-[120px] bg-won-brand-secondary/30 rounded-won-xl p-won-6">
+        {children}
+      </div>
+      <div className="p-won-3 bg-won-brand-tertiary rounded-won-lg">
+        <code className="text-[10px] font-mono text-won-brand-secondary break-all">
+          {tailwind}
+        </code>
       </div>
     </div>
   );
