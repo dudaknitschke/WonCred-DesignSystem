@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Colors - Using won-colors prefix as requested */
+  --color-won-colors-brand-primary-0: #B01F29;
+  --color-won-colors-brand-primary-1: #892028;
+  --color-won-colors-brand-primary-2: #64131A;
+  --color-won-colors-brand-secondary: #F4F4F2;
+  --color-won-colors-brand-tertiary: #1D1D1B;
+
+  --color-won-colors-surface-background: #FEFEFE;
+  --color-won-colors-surface-cards: #FFFFFF;
+
+  --color-won-colors-complementary-green: #15B37D;
+  --color-won-colors-complementary-orange: #E67E22;
+  --color-won-colors-complementary-red: #C0392B;
+  --color-won-colors-complementary-blue: #3470B7;
+
+  --color-won-colors-interactive-pressed: rgba(0, 0, 0, 0.2);
+  --color-won-colors-interactive-hover: #FFFFFF;
+  --color-won-colors-interactive-active: #FFFFFF;
+
+  --color-won-colors-border-default: #E6E6E6;
+
+  --color-won-colors-content-primary: #1D1D1B;
+  --color-won-colors-content-secondary: #4A5565;
+  --color-won-colors-content-tertiary: #6A7282;
+
+  /* Typography */
+  --font-won-font-heading: "Degular Variable", "Outfit", sans-serif;
+  --font-won-font-body: "Manrope", sans-serif;
+
+  --font-weight-won-regular: 400;
+  --font-weight-won-semibold: 600;
+  --font-weight-won-bold: 700;
+  --font-weight-won-extrabold: 800;
+
+  /* Text Sizes */
+  --font-size-won-text-40: 2.5rem; /* 40px */
+  --font-size-won-text-40--line-height: 3rem; /* 48px */
+
+  --font-size-won-text-32: 2rem; /* 32px */
+  --font-size-won-text-32--line-height: 2.5rem; /* 40px */
+
+  --font-size-won-text-h1: 1.5rem; /* 24px */
+  --font-size-won-text-h1--line-height: 2rem; /* 32px */
+
+  --font-size-won-text-h2: 1.25rem; /* 20px */
+  --font-size-won-text-h2--line-height: 1.75rem; /* 28px */
+
+  --font-size-won-text-p1: 1rem; /* 16px */
+  --font-size-won-text-p1--line-height: 1.5rem; /* 24px */
+
+  --font-size-won-text-p2: 0.875rem; /* 14px */
+  --font-size-won-text-p2--line-height: 1.375rem; /* 22px */
+
+  --font-size-won-text-p3: 0.75rem; /* 12px */
+  --font-size-won-text-p3--line-height: 1.25rem; /* 20px */
+
+  --font-size-won-text-p4: 0.625rem; /* 10px */
+  --font-size-won-text-p4--line-height: 1rem; /* 16px */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-won-colors-surface-background);
+    color: var(--color-won-colors-content-primary);
+    font-family: var(--font-won-font-body);
+  }
+
+  h1 {
+    font-family: var(--font-won-font-heading);
+    font-weight: var(--font-weight-won-extrabold);
+    font-size: var(--font-size-won-text-40);
+    line-height: var(--font-size-won-text-40--line-height);
+  }
+
+  h2 {
+    font-family: var(--font-won-font-heading);
+    font-weight: var(--font-weight-won-bold);
+    font-size: var(--font-size-won-text-32);
+    line-height: var(--font-size-won-text-32--line-height);
+  }
+
+  h3 {
+    font-family: var(--font-won-font-heading);
+    font-weight: var(--font-weight-won-bold);
+    font-size: var(--font-size-won-text-h1);
+    line-height: var(--font-size-won-text-h1--line-height);
+  }
+
+  h4 {
+    font-family: var(--font-won-font-heading);
+    font-weight: var(--font-weight-won-semibold);
+    font-size: var(--font-size-won-text-h2);
+    line-height: var(--font-size-won-text-h2--line-height);
+  }
+
+  p {
+    font-family: var(--font-won-font-body);
+    font-weight: var(--font-weight-won-regular);
+    font-size: var(--font-size-won-text-p1);
+    line-height: var(--font-size-won-text-p1--line-height);
+  }
+
+  small {
+    font-size: var(--font-size-won-text-p3);
+    line-height: var(--font-size-won-text-p3--line-height);
+  }
+}
+
