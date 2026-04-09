@@ -128,7 +128,7 @@ export default function App() {
 
   const copyToClipboard = useCallback((text: string) => {
     navigator.clipboard.writeText(text);
-    addToast(`Copied: ${text}`);
+    addToast(`Copiado: ${text}`);
   }, [addToast]);
 
   return (
@@ -142,21 +142,21 @@ export default function App() {
             </div>
             <span className="font-won-font-heading font-won-bold text-won-text-h2 tracking-tight">Won Cred</span>
           </div>
-          <p className="text-won-text-p4 text-won-colors-content-tertiary uppercase tracking-widest font-won-semibold">Design System v1.0</p>
+          <p className="text-won-text-p4 text-won-colors-content-tertiary uppercase tracking-widest font-won-semibold">Sistema de Design v1.0</p>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          <NavItem href="#foundation" icon={<Layers className="w-4 h-4" />} label="Foundation" />
-          <NavItem href="#colors" icon={<Palette className="w-4 h-4" />} label="Colors" />
-          <NavItem href="#typography" icon={<Type className="w-4 h-4" />} label="Typography" />
-          <NavItem href="#base-styles" icon={<Zap className="w-4 h-4" />} label="Base Styles" />
-          <NavItem href="#export" icon={<Terminal className="w-4 h-4" />} label="Developer Export" />
+          <NavItem href="#foundation" icon={<Layers className="w-4 h-4" />} label="Fundação" />
+          <NavItem href="#colors" icon={<Palette className="w-4 h-4" />} label="Cores" />
+          <NavItem href="#typography" icon={<Type className="w-4 h-4" />} label="Tipografia" />
+          <NavItem href="#base-styles" icon={<Zap className="w-4 h-4" />} label="Estilos Base" />
+          <NavItem href="#export" icon={<Terminal className="w-4 h-4" />} label="Exportação" />
         </nav>
         <div className="p-6 border-t border-won-colors-border-default">
           <button 
             onClick={() => copyToClipboard(EXPORT_THEME_BLOCK)}
             className="w-full py-3 bg-won-colors-brand-tertiary text-white rounded-lg text-won-text-p3 font-won-semibold flex items-center justify-center gap-2 hover:bg-black transition-colors"
           >
-            <Download className="w-4 h-4" /> Copy Theme Block
+            <Download className="w-4 h-4" /> Copiar Bloco de Tema
           </button>
         </div>
       </aside>
@@ -179,39 +179,39 @@ export default function App() {
           <section id="foundation" className="scroll-mt-24 space-y-8">
             <div className="space-y-4">
               <h1 className="font-won-font-heading font-won-extrabold text-won-text-40 tracking-tight text-won-colors-brand-tertiary">
-                Foundation
+                Fundação
               </h1>
               <p className="text-won-text-h2 text-won-colors-content-secondary leading-relaxed max-w-3xl">
-                The Won Cred design system provides a unified language for our digital products. 
-                It is built on a foundation of precision, clarity, and trust.
+                O sistema de design Won Cred fornece uma linguagem unificada para nossos produtos digitais. 
+                Ele é construído sobre uma base de precisão, clareza e confiança.
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               <FeatureCard 
                 icon={<Zap className="w-5 h-5 text-won-colors-complementary-orange" />}
-                title="Atomic Tokens"
-                description="Smallest building blocks of our UI, from colors to spacing."
+                title="Tokens Atômicos"
+                description="Os menores blocos de construção da nossa interface, de cores a espaçamento."
               />
               <FeatureCard 
                 icon={<Code className="w-5 h-5 text-won-colors-complementary-blue" />}
-                title="Dev Ready"
-                description="Tokens are prefixed and ready for instant implementation."
+                title="Pronto para Dev"
+                description="Os tokens possuem prefixo e estão prontos para implementação instantânea."
               />
               <FeatureCard 
                 icon={<Terminal className="w-5 h-5 text-won-colors-complementary-green" />}
-                title="Consistent"
-                description="Ensures a cohesive experience across all platforms."
+                title="Consistente"
+                description="Garante uma experiência coesa em todas as plataformas."
               />
             </div>
           </section>
 
           {/* Colors */}
           <section id="colors" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Colors" icon={<Palette className="w-6 h-6" />} />
+            <SectionHeader title="Cores" icon={<Palette className="w-6 h-6" />} />
             
             <div className="space-y-20">
               <ColorGrid 
-                title="Brand" 
+                title="Marca" 
                 onCopy={copyToClipboard}
                 tokens={[
                   { name: 'won-colors-brand-primary-0', value: '#B01F29' },
@@ -222,7 +222,7 @@ export default function App() {
                 ]}
               />
               <ColorGrid 
-                title="Surface" 
+                title="Superfície" 
                 onCopy={copyToClipboard}
                 tokens={[
                   { name: 'won-colors-surface-background', value: '#FEFEFE' },
@@ -230,7 +230,7 @@ export default function App() {
                 ]}
               />
               <ColorGrid 
-                title="Complementary" 
+                title="Complementares" 
                 onCopy={copyToClipboard}
                 tokens={[
                   { name: 'won-colors-complementary-green', value: '#15B37D' },
@@ -241,7 +241,7 @@ export default function App() {
               />
               <div className="grid md:grid-cols-2 gap-12">
                 <ColorGrid 
-                  title="Interactive" 
+                  title="Interativos" 
                   onCopy={copyToClipboard}
                   tokens={[
                     { name: 'won-colors-interactive-pressed', value: 'rgba(0,0,0,0.2)' },
@@ -250,7 +250,7 @@ export default function App() {
                   ]}
                 />
                 <ColorGrid 
-                  title="Border" 
+                  title="Borda" 
                   onCopy={copyToClipboard}
                   tokens={[
                     { name: 'won-colors-border-default', value: '#E6E6E6' },
@@ -258,7 +258,7 @@ export default function App() {
                 />
               </div>
               <ColorGrid 
-                title="Content" 
+                title="Conteúdo" 
                 onCopy={copyToClipboard}
                 tokens={[
                   { name: 'won-colors-content-primary', value: '#1D1D1B' },
@@ -271,7 +271,7 @@ export default function App() {
 
           {/* Typography */}
           <section id="typography" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Typography" icon={<Type className="w-6 h-6" />} />
+            <SectionHeader title="Tipografia" icon={<Type className="w-6 h-6" />} />
             
             <div className="space-y-16">
               {/* Font Families */}
@@ -279,14 +279,14 @@ export default function App() {
                 <FontFamilyCard 
                   name="Degular Variable" 
                   token="won-font-font-heading" 
-                  usage="Headings, Titles, Buttons"
+                  usage="Uso: Títulos, Cabeçalhos, Botões"
                   onCopy={copyToClipboard}
                   className="font-won-font-heading"
                 />
                 <FontFamilyCard 
                   name="Manrope" 
                   token="won-font-font-body" 
-                  usage="Body Text, Paragraphs, Data"
+                  usage="Uso: Texto de Corpo, Parágrafos, Dados"
                   onCopy={copyToClipboard}
                   className="font-won-font-body"
                 />
@@ -294,14 +294,14 @@ export default function App() {
 
               {/* Type Scale */}
               <div className="space-y-6">
-                <h3 className="text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-widest">Type Scale</h3>
+                <h3 className="text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-widest">Escala Tipográfica</h3>
                 <div className="bg-white border border-won-colors-border-default rounded-2xl overflow-hidden shadow-sm">
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="bg-won-colors-brand-secondary/50 border-b border-won-colors-border-default">
-                        <th className="px-8 py-4 text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-wider">Preview</th>
+                        <th className="px-8 py-4 text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-wider">Prévia</th>
                         <th className="px-8 py-4 text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-wider">Token</th>
-                        <th className="px-8 py-4 text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-wider">Specs</th>
+                        <th className="px-8 py-4 text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-wider">Especificações</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-won-colors-border-default">
@@ -322,31 +322,31 @@ export default function App() {
 
           {/* Base Styles */}
           <section id="base-styles" className="scroll-mt-24 space-y-12">
-            <SectionHeader title="Base Styles" icon={<Zap className="w-6 h-6" />} />
+            <SectionHeader title="Estilos Base" icon={<Zap className="w-6 h-6" />} />
             <div className="space-y-6">
               <p className="text-won-text-h2 text-won-colors-content-secondary leading-relaxed max-w-3xl">
-                These are the default styles applied to standard HTML elements. 
-                They ensure that even without specific utility classes, your content remains on-brand.
+                Estes são os estilos padrão aplicados aos elementos HTML básicos. 
+                Eles garantem que, mesmo sem classes utilitárias específicas, seu conteúdo permaneça alinhado à marca.
               </p>
               <div className="p-8 bg-white border border-won-colors-border-default rounded-2xl space-y-8">
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">H1 Element</span>
-                  <h1>The quick brown fox jumps</h1>
+                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">Elemento H1</span>
+                  <h1>Um pequeno jabuti xereta viu dez cegonhas felizes</h1>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">H2 Element</span>
-                  <h2>The quick brown fox jumps</h2>
+                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">Elemento H2</span>
+                  <h2>Um pequeno jabuti xereta viu dez cegonhas felizes</h2>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">H3 Element</span>
-                  <h3>The quick brown fox jumps</h3>
+                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">Elemento H3</span>
+                  <h3>Um pequeno jabuti xereta viu dez cegonhas felizes</h3>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">Paragraph Element</span>
+                  <span className="text-[10px] font-mono text-won-colors-content-tertiary">Elemento de Parágrafo</span>
                   <p>
-                    The Won Cred design system provides a unified language for our digital products. 
-                    It is built on a foundation of precision, clarity, and trust. 
-                    Our typography ensures that information is accessible and legible across all platforms.
+                    O sistema de design Won Cred fornece uma linguagem unificada para nossos produtos digitais. 
+                    Ele é construído sobre uma base de precisão, clareza e confiança. 
+                    Nossa tipografia garante que a informação seja acessível e legível em todas as plataformas.
                   </p>
                 </div>
               </div>
@@ -355,7 +355,7 @@ export default function App() {
 
           {/* Developer Export */}
           <section id="export" className="scroll-mt-24 space-y-8">
-            <SectionHeader title="Developer Export" icon={<Terminal className="w-6 h-6" />} />
+            <SectionHeader title="Exportação para Desenvolvedores" icon={<Terminal className="w-6 h-6" />} />
             <div className="bg-won-colors-brand-tertiary rounded-2xl p-8 relative group">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
@@ -368,7 +368,7 @@ export default function App() {
                   onClick={() => copyToClipboard(EXPORT_THEME_BLOCK)}
                   className="px-4 py-2 bg-white/10 text-white rounded-lg text-won-text-p4 font-won-semibold flex items-center gap-2 hover:bg-white/20 transition-colors"
                 >
-                  <Copy className="w-3 h-3" /> Copy Theme
+                  <Copy className="w-3 h-3" /> Copiar Tema
                 </button>
               </div>
               <pre className="text-won-text-p3 text-won-colors-brand-secondary font-mono overflow-x-auto leading-relaxed">
@@ -480,11 +480,11 @@ function FontFamilyCard({ name, token, usage, onCopy, className }: { name: strin
   return (
     <div className="p-8 bg-white border border-won-colors-border-default rounded-2xl space-y-6 hover:border-won-colors-brand-primary-0 transition-colors group">
       <div className="space-y-1">
-        <span className="text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-widest">Font Family</span>
+        <span className="text-won-text-p4 font-won-bold text-won-colors-content-tertiary uppercase tracking-widest">Família de Fontes</span>
         <h3 className={`text-won-text-40 ${className} text-won-colors-brand-tertiary`}>{name}</h3>
       </div>
       <div className="space-y-4">
-        <p className="text-won-text-p2 text-won-colors-content-secondary">Usage: {usage}</p>
+        <p className="text-won-text-p2 text-won-colors-content-secondary">{usage}</p>
         <button 
           onClick={() => onCopy(tailwindClass)}
           className="flex items-center gap-2 text-won-text-p3 font-won-semibold text-won-colors-brand-primary-0 hover:underline"
@@ -505,7 +505,7 @@ function TypeRow({ token, size, line, onCopy }: { token: string; size: string; l
     >
       <td className="px-8 py-8">
         <span className={`${tailwindClass} font-won-font-heading font-won-bold truncate block text-won-colors-brand-tertiary`}>
-          The quick brown fox jumps
+          Um pequeno jabuti xereta viu dez cegonhas felizes
         </span>
       </td>
       <td className="px-8 py-8">
@@ -517,10 +517,10 @@ function TypeRow({ token, size, line, onCopy }: { token: string; size: string; l
       <td className="px-8 py-8">
         <div className="space-y-1">
           <div className="text-won-text-p3 text-won-colors-content-secondary font-mono">
-            Size: <span className="text-won-colors-brand-tertiary font-won-bold">{size}</span>
+            Tamanho: <span className="text-won-colors-brand-tertiary font-won-bold">{size}</span>
           </div>
           <div className="text-won-text-p3 text-won-colors-content-secondary font-mono">
-            Line: <span className="text-won-colors-brand-tertiary font-won-bold">{line}</span>
+            Linha: <span className="text-won-colors-brand-tertiary font-won-bold">{line}</span>
           </div>
         </div>
       </td>
